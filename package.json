@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "yarn clean && yarn build-cli && nodemon lib/server",
     "build-cli": "babel src -d lib --copy-files > lib/log.txt",
-    "clean": "rm -rf lib && mkdir lib"
+    "clean": "rimraf lib && mkdir lib"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.20.5",
-    "@babel/preset-env": "^7.20.2"
+    "@babel/preset-env": "^7.20.2",
+    "rimraf": "^4.1.2"
   }
 }

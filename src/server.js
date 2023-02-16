@@ -3,15 +3,20 @@ let { parseBodyData } = require('./utils.js');
 let { getOpenAiReply } = require('./openai/index.js')
 let app = express();
 app.post('/api/list', async function (req, res) {
+    console.log(req)
     //不能正确解析json 格式的post参数
-    let data = await parseBodyData(req)
+    let data = req.query
+    // console.log(data)
     console.log(data, 'data')
     /**微信聊天**/
         let reg = /wxid=(.*)]/g
         reg.test(data.msg)
         let callSomeoneId = RegExp.$1
-        if (data?.msg?.indexOf('@at') > -1 && callSomeoneId == data.robot_wxid) { //要@机器人才聊天
-            const newMsg = data.msg.substr(data.msg.lastIndexOf('  ')).trim()
+        // if (data?.msg?.indexOf('@at') > -1 && callSomeoneId == data.robot_wxid) { //要@机器人才聊天
+            console.log("艾特")
+            const newMsg = data.msg
+            console.log(data.newMsg)
+            // const newMsg = data.msg.substr(data.msg.lastIndexOf('  ')).trim()
             let robotAnswer = await getOpenAiReply(newMsg)
             console.log(robotAnswer, 'robotAnswer')
             return res.json(
@@ -27,7 +32,7 @@ app.post('/api/list', async function (req, res) {
                     "msg": robotAnswer,//发送的内容
                 }
             )
-        }
+        // }
 })
 
 
